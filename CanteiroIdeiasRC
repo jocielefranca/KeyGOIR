@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROI - Canteiro de Ideias - Projetos Unificados</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+        
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            background: linear-gradient(135deg, #0a4d3a 0%, #1a5f4a 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+        
+        .tabs-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            gap: 10px;
+        }
+        
+        .tab-button {
+            background: linear-gradient(135deg, #0a4d3a 0%, #1a5f4a 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .tab-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+        
+        .tab-button.active {
+            background: linear-gradient(135deg, #1a5f4a 0%, #66ffaa 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(26, 95, 74, 0.4);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .presentation-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .slide {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .slide-header-container {
+            position: relative;
+            margin-bottom: 30px;
+        }
+        
+        .slide-header {
+            background: linear-gradient(135deg, #0a4d3a 0%, #1a5f4a 100%);
+            color: white;
+            padding: 20px 25px;
+            border-radius: 12px;
+            font-size: 28px;
+            font-weight: bold;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 15px rgba(10, 77, 58, 0.3);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .roi-badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: linear-gradient(135deg, #1a5f4a 0%, #66ffaa 100%);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: bold;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            border: 3px solid white;
+            z-index: 5;
+            min-width: 120px;
+            animation: pulse 2s infinite;
+        }
+        
+        .roi-badge .roi-number {
+            display: block;
+            font-size: 18px;
+            margin-bottom: 2px;
+        }
+        
+        .roi-badge .roi-label {
+            font-size: 11px;
+            opacity: 0.9;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(102,255,170,0.1) 0%, rgba(26,95,74,0.05) 100%);
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .slide::after {
+            content: '';
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, rgba(26,95,74,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .slide-subtitle {
+            background: #1a5f4a;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            display: inline-block;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        .content-section {
+            margin-bottom: 25px;
+        }
+        
+        .description-box {
+            background: linear-gradient(135deg, #0a4d3a 0%, #1a5f4a 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-size: 18px;
+            font-weight: 500;
+            line-height: 1.6;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .info-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #1a5f4a;
+        }
+        
+        .info-label {
+            font-weight: bold;
+            color: #0a4d3a;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+        
+        .info-value {
+            font-size: 18px;
+            color: #333;
+            font-weight: 500;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            gap: 30px;
+            margin: 20px 0;
+            align-items: center;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #1a5f4a;
+            border-radius: 3px;
+            position: relative;
+        }
+        
+        .checkbox.checked {
+            background: #1a5f4a;
+        }
+        
+        .checkbox.checked::after {
+            content: '✓';
+            color: white;
+            font-weight: bold;
+            position: absolute;
+            top: -2px;
+            left: 3px;
+        }
+        
+        .results-section {
+            background: linear-gradient(135deg, #0a4d3a 0%, #1a5f4a 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 20px;
+            position: relative;
+        }
+        
+        .star-icon {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+        
+        .centered-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 400px;
+        }
+        
+        .example-section {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 0 auto;
+            width: 80%;
+            max-width: 800px;
+        }
+        
+        .cards-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .data-card {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .data-card strong {
+            display: block;
+            font-size: 18px;
+            margin-top: 5px;
+        }
+        
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .table th {
+            background: linear-gradient(135deg, #0a4d3a 0%, #1a5f4a 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .highlight {
+            background: rgba(102, 255, 170, 0.1) !important;
+            font-weight: bold;
+            color: #0a4d3a;
+        }
+        
+        .roi-highlight {
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(102, 255, 170, 0.2);
+            border-radius: 8px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .callout-box {
+            position: absolute;
+            top: 15px;
+            right: 150px;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            color: white;
+            padding: 10px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-align: center;
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+            border: 2px solid rgba(255,255,255,0.3);
+            z-index: 4;
+            max-width: 180px;
+            animation: bounce 3s ease-in-out infinite;
+        }
+        
+        .callout-box::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 8px solid #f7931e;
+        }
+        
+        .benefit-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .benefit-list li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .benefit-list li::before {
+            content: '•';
+            color: #00ff88;
+            font-size: 20px;
+            position: absolute;
+            left: 0;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .tabs-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .tab-button {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .roi-badge {
+                position: static;
+                margin: 10px 0;
+                display: inline-block;
+            }
+            
+            .callout-box {
+                position: static;
+                margin: 10px 0;
+                max-width: 100%;
+            }
+            
+            .callout-box::after {
+                display: none;
+            }
+            
+            .slide-header {
+                font-size: 24px;
+                padding: 15px 20px;
+            }
+            
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .cards-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div class="header">
+            <h1>🏆 Canteiro de Ideias - ROI Comprovado</h1>
+            <p>Apresentação dos Resultados Excepcionais dos Projetos</p>
+        </div>
+        
+        <div class="tabs-container">
+            <button class="tab-button active" onclick="switchTab(event, 'keygo')">
+                🚀 KeyGo Digital (ROI 524%)
+            </button>
+            <button class="tab-button" onclick="switchTab(event, 'informes')">
+                📊 Automação de Informes (ROI 347%)
+            </button>
+        </div>
+        
+        <!-- TAB 1: KeyGo Digital -->
+        <div id="keygo" class="tab-content active">
+            <div class="presentation-container">
+                <!-- Slide 1: Título e Resultados KeyGo -->
+                <div class="slide">
+                    <div class="slide-header-container">
+                        <div class="slide-header">
+                            KeyGo Digital - Automação de Termos de Entrega (Fase 1)
+                        </div>
+                        <div class="roi-badge">
+                            <span class="roi-number">ROI 524%</span>
+                            <span class="roi-label">Canteiro de Ideias - Retorno Excepcional</span>
+                        </div>
+                    </div>
+                    
+                    <div class="slide-subtitle">Resultados</div>
+                    
+                    <div class="content-section">
+                        <div class="info-label">Descrição resumida da ideia:</div>
+                        <div class="description-box">
+                            Automação da elaboração dos termos de entrega de chaves, eliminando 100% do trabalho manual de geração desses documentos. A solução automatiza a criação dos termos mantendo ainda a assinatura física, mas eliminando todo o processo manual de elaboração.
+                        </div>
+                    </div>
+                    
+                    <div class="info-grid">
+                        <div class="info-box">
+                            <div class="info-label">Tipo de resultado:</div>
+                            <div class="checkbox-group">
+                                <div class="checkbox-item">
+                                    <div class="checkbox checked"></div>
+                                    <span>Qualitativo</span>
+                                </div>
+                                <div class="checkbox-item">
+                                    <div class="checkbox checked"></div>
+                                    <span>Quantitativo</span>
+                                </div>
+                                <div class="checkbox-item">
+                                    <div class="checkbox checked"></div>
+                                    <span>Ambos</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="info-box">
+                            <div class="info-label">Período de implementação da ideia:</div>
+                            <div class="info-value">8 horas de desenvolvimento (investimento único)</div>
+                        </div>
+                    </div>
+                    
+                    <div class="results-section">
+                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                            <span class="star-icon">⭐</span>
+                            <strong style="font-size: 20px;">RESULTADOS (processo atual vs processo automatizado):</strong>
+                        </div>
+                        
+                        <div class="roi-highlight">
+                            ROI: 524% | Economia Total: R$ 1.792 | Investimento: R$ 342
+                            <br><br>
+                            <em>A economia gerada é mais de 5 vezes maior que o investimento!</em>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Slide 2: Análise Detalhada KeyGo -->
+                <div class="slide">
+                    <div class="slide-header-container">
+                        <div class="slide-header">Análise Detalhada</div>
+                        <div class="roi-badge">
+                            <span class="roi-number">🎯 Dados</span>
+                            <span class="roi-label">Comprovados</span>
+                        </div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3 style="color: #2E7D32; margin-bottom: 30px; text-align: center; font-size: 28px;">🎯 Análise Detalhada do Projeto</h3>
+                        
+                        <div class="centered-content">
+                            <div class="example-section">
+                                <div style="text-align: center; margin-bottom: 30px;">
+                                    <div style="background: #1a5f4a; color: white; padding: 15px 20px; border-radius: 20px; display: inline-block; font-size: 14px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
+                                        🎉 Dados Reais do Projeto KeyGo! 🎊
+                                    </div>
+                                </div>
+                                
+                                <h4 style="color: #0a4d3a; text-align: center; margin-bottom: 25px; font-size: 22px;">📊 Resultados Comprovados</h4>
+                                
+                                <div style="background: linear-gradient(135deg, #1a5f4a, #66ffaa); color: white; padding: 30px; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.2); margin-bottom: 25px;">
+                                    <div style="font-size: 20px; margin-bottom: 20px; text-align: center; font-weight: bold;">💰 Dados Financeiros</div>
+                                    <div class="cards-container">
+                                        <div class="data-card">
+                                            💸 Investimento Total<strong>R$ 342</strong>
+                                        </div>
+                                        <div class="data-card">
+                                            📈 Economia Semestral<strong>R$ 2.134</strong>
+                                        </div>
+                                        <div class="data-card">
+                                            ⚡ Economia Líquida<strong>R$ 1.792</strong>
+                                        </div>
+                                        <div class="data-card">
+                                            🎯 Payback<strong>1,6 meses</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div style="background: linear-gradient(135deg, #0a4d3a, #1a5f4a); color: white; padding: 25px; border-radius: 15px; text-align: center; box-shadow: 0 8px 25px rgba(0,0,0,0.2);">
+                                    <div style="font-size: 20px; margin-bottom: 20px; font-weight: bold;">🚀 Detalhes Operacionais</div>
+                                    <div class="cards-container" style="margin-bottom: 20px;">
+                                        <div class="data-card">
+                                            📋 Entregas Semestrais<strong>838 chaves</strong>
+                                        </div>
+                                        <div class="data-card">
+                                            ⏱️ Tempo Economizado<strong>72 horas (90%)</strong>
+                                        </div>
+                                        <div class="data-card">
+                                            💼 Desenvolvimento<strong>8 horas únicas</strong>
+                                        </div>
+                                        <div class="data-card">
+                                            📈 Capacidade Extra<strong>200 clientes</strong>
+                                        </div>
+                                    </div>
+                                    <div style="background: rgba(102, 255, 170, 0.2); padding: 15px; border-radius: 10px; font-size: 22px; font-weight: bold;">
+                                        🎊 ROI Final: 524% 🎉
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Slide 3: Resultados Detalhados KeyGo -->
+                <div class="slide">
+                    <div class="slide-header-container">
+                        <div class="slide-header">Resultados Detalhados</div>
+                        <div class="roi-badge">
+                            <span class="roi-number">🎉 Success</span>
+                            <span class="roi-label">Comprovado</span>
+                        </div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3 style="color: #2E7D32; margin-bottom: 20px;">Detalhamento dos Resultados Quantitativos:</h3>
+                        
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Indicador</th>
+                                    <th>Como demonstrar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>💰 Economia de Custos Operacionais</strong></td>
+                                    <td>R$ 1.792 líquidos no primeiro semestre, R$ 4.268 anuais</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>⚡ Otimização de Tempo</strong></td>
+                                    <td>90% de redução no tempo: de 80 horas para 0 horas por semestre</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>📈 Aumento de Capacidade</strong></td>
+                                    <td>200 clientes adicionais por semestre (36% de aumento)</td>
+                                </tr>
+                                <tr class="highlight">
+                                    <td><strong>🎯 ROI Excepcional</strong></td>
+                                    <td>524% = R$ 1.792 economia ÷ R$ 342 investimento 🎉</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <div style="background: linear-gradient(135deg, rgba(102, 255, 170, 0.1), rgba(26, 95, 74, 0.1)); padding: 25px; border-radius: 15px; border-left: 5px solid #1a5f4a; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                            <h4 style="color: #0a4d3a; margin-bottom: 15px;">🎊 Principais Benefícios Qualitativos Conquistados:</h4>
+                            <ul style="color: #333; line-height: 1.8;">
+                                <li>😊 <strong>Eliminação total:</strong> 100% do trabalho manual de elaboração dos termos</li>
+                                <li>🚀 <strong>Padronização:</strong> Todos os termos seguem formato único e correto</li>
+                                <li>⚙️ <strong>Agilidade:</strong> Termos disponíveis instantaneamente quando necessário</li>
+                                <li>📈 <strong>Escalabilidade:</strong> Sistema preparado para crescimento sem custos extras</li>
+                                <li>🎯 <strong>Foco estratégico:</strong> Equipe liberada para atividades de maior valor</li>
+                                <li>💡 <strong>Base para Fase 2:</strong> Preparação para digitalização completa das assinaturas</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Slide 4: Reconhecimento KeyGo -->
+                <div class="slide">
+                    <div class="slide-header-container">
+                        <div class="slide-header" style="text-align: center; background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); color: #333;">
+                            🏆 Reconhecimento da Equipe 🏆
+                        </div>
+                        <div class="roi-badge" style="background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);">
+                            <span class="roi-number">👏 Team</span>
+                            <span class="roi-label">Champions</span>
+                        </div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div style="background: linear-gradient(135deg, #1a5f4a 0%, #66ffaa 100%); color: white; padding: 40px; border-radius: 20px; text-align: center; box-shadow: 0 15px 35px rgba(0,0,0,0.2); margin: 30px 0; position: relative; overflow: hidden;">
+                            
+                            <div style="position: absolute; top: -20px; left: -20px; width: 80px; height: 80px; background: rgba(255,255,255,0.1); border-radius: 50%; animation: float 3s ease-in-out infinite;"></div>
+                            <div style="position: absolute; bottom: -30px; right: -30px; width: 120px; height: 120px; background: rgba(255,255,255,0.05); border-radius: 50%; animation: float 4s ease-in-out infinite reverse;"></div>
+                            
+                            <div style="font-size: 48px; margin-bottom: 20px; animation: bounce 2s infinite;">🎉</div>
+                            
+                            <h2 style="font-size: 32px; margin-bottom: 25px; text-shadow: 0 3px 6px rgba(0,0,0,0.3); font-weight: bold;">
+                                PARABÉNS PARA TODO O TIME KEYGO!
+                            </h2>
+                            
+                            <div style="background: rgba(255,255,255,0.15); padding: 25px; border-radius: 15px; margin: 25px 0; backdrop-filter: blur(10px);">
+                                <div style="font-size: 24px; font-weight: bold; margin-bottom: 15px; color: #FFD700; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">
+                                    ⭐ JULIANA GUEDES • DIMAS ⭐
+                                </div>
+                                <div style="font-size: 20px; font-style: italic; opacity: 0.95;">
+                                   Transformando processos e gerando resultados extraordinários!
+                                </div>
+                            </div>
+                            
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin: 30px 0;">
+                                <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 12px; text-align: center;">
+                                    <div style="font-size: 24px; margin-bottom: 8px;">🚀</div>
+                                    <div style="font-weight: bold;">Automação</div>
+                                    <div style="font-size: 14px; opacity: 0.9;">100% dos termos</div>
+                                </div>
+                                <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 12px; text-align: center;">
+                                    <div style="font-size: 24px; margin-bottom: 8px;">💎</div>
+                                    <div style="font-weight: bold;">Excelência</div>
+                                    <div style="font-size: 14px; opacity: 0.9;">ROI de 524%</div>
+                                </div>
+                                <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 12px; text-align: center;">
+                                    <div style="font-size: 24px; margin-bottom: 8px;">⚡</div>
+                                    <div style="font-weight: bold;">Eficiência</div>
+                                    <div style="font-size: 14px; opacity: 0.9;">90% menos tempo</div>
+                                </div>
+                                <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 12px; text-align: center;">
+                                    <div style="font-size: 24px; margin-bottom: 8px;">🎯</div>
+                                    <div style="font-weight: bold;">Resultados</div>
+                                    <div style="font-size: 14px; opacity: 0.9;">R$ 1.792 economizados</div>
+                                </div>
+                            </div>
+                            
+                            <div style="font-size: 28px; font-weight: bold; margin-top: 30px; text-shadow: 0 3px 6px rgba(0,0,0,0.3);">
+                                🌟 VOCÊS SÃO INCRÍVEIS! 🌟
+                            </div>
+                            
+                            <div style="font-size: 16px; margin-top: 15px; font-style: italic; opacity: 0.9;">
+                                Este ROI excepcional é fruto da dedicação e inovação da equipe.<br>
+                                Continuem transformando processos e inspirando mudanças positivas!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB 2: Automação de Informes -->
+        <div id="informes" class="tab-content">
+            <div class="presentation-container">
+                <!-- Slide 1: Título e Resultados -->
+                <div class="slide">
+                    <div class="slide-header-container">
+                        <div class="slide-header">
+                            Automação de Informes de Rendimento (Processo Anual)
+                        </div>
+                        <div class="roi-badge">
+                            <span class="roi-number">ROI 346%</span>
+                            <span class="roi-label">Canteiro de Ideias - Retorno Excepcional</span>
+                        </div>
+                    </div>
+                    
+                    <div class="slide-subtitle">Resultados</div>
+                    
+                    <div class="content-section">
+                        <div class="info-label">Descrição resumida da ideia:</div>
+                        <div class="description-box">
+                            Implementação de automação para o processo anual de geração de informes de rendimento, eliminando tarefas manuais repetitivas e reduzindo significativamente o tempo e recursos humanos necessários, além de melhor a satisfação do cliente.
+                        </div>
+                    </div>
+                    
+                    <div class="info-grid">
+                        <div class="info-box">
+                            <div class="info-label">Tipo de resultado:</div>
+                            <div class="checkbox-group">
+                                <div class="checkbox-item">
+                                    <div class="checkbox checked"></div>
+                                    <span>Qualitativo</span>
+                                </div>
+                                <div class="checkbox-item">
+                                    <div class="checkbox checked"></div>
+                                    <span>Quantitativo</span>
+                                </div>
+                                <div class="checkbox-item">
+                                    <div class="checkbox checked"></div>
+                                    <span>Ambos</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="info-box">
+                            <div class="info-label">Período de implementação da ideia:</div>
+                            <div class="info-value">Março de 2025</div>
+                        </div>
+                    </div>
+                    
+                    <div class="results-section">
+                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                            <span class="star-icon">⭐</span>
+                            <strong style="font-size: 20px;">RESULTADOS (processo atual vs processo automatizado):</strong>
+                        </div>
+                        
+                        <div class="roi-highlight">
+                            ROI: 346,7% | Economia Total: R$ 7.169 | Investimento: R$ 1.605
+                            <br><br>
+                            <em>A economia gerada é mais de 4 vezes maior que o investimento!</em>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Slide 2: Análise Detalhada -->
+                <div class="slide">
+                    <div class="slide-header-container">
+                        <div class="slide-header">
+                            Análise Detalhada
+                        </div>
+                        <div class="roi-badge">
+                            <span class="roi-number">🎯 Dados</span>
+                            <span class="roi-label">Comprovados</span>
+                        </div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3 style="color: #2E7D32; margin-bottom: 30px; text-align: center; font-size: 28px;">🎯 Análise Detalhada do Projeto</h3>
+                        
+                        <div class="centered-content">
+                            <div class="example-section">
+                                <div style="text-align: center; margin-bottom: 30px;">
+                                    <div style="background: #1a5f4a; color: white; padding: 15px 20px; border-radius: 20px; display: inline-block; font-size: 14px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
+                                        🎉 Dados Reais do Projeto! 🎊
+                                    </div>
+                                </div>
+                                
+                                <h4 style="color: #0a4d3a; text-align: center; margin-bottom: 25px; font-size: 22px;">📊 Resultados Comprovados</h4>
+                                
+                                <div style="background: linear-gradient(135deg, #1a5f4a, #66ffaa); color: white; padding: 30px; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.2); margin-bottom: 25px;">
+                                    <div style="font-size: 20px; margin-bottom: 20px; text-align: center; font-weight: bold;">💰 Dados Financeiros</div>
+                                    <div class="cards-container">
+                                        <div class="data-card">
+                                            💸 Investimento Total<strong>R$ 1.605</strong>
+                                        </div>
+                                        <div class="data-card">
+                                            📈 Custo Evitado (Atendimento)<strong>R$ 1.812</strong>
+                                        </div>
+                                        <div class="data-card">
+                                            ⚡ Custo Evitado (Esforço)<strong>R$ 5.357</strong>
+                                        </div>
+                                        <div class="data-card">
+                                            🎯 Total de Economia<strong>R$ 7.169</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div style="background: linear-gradient(135deg, #0a4d3a, #1a5f4a); color: white; padding: 25px; border-radius: 15px; text-align: center; box-shadow: 0 8px 25px rgba(0,0,0,0.2);">
+                                    <div style="font-size: 20px; margin-bottom: 20px; font-weight: bold;">🚀 Detalhes Operacionais</div>
+                                    <div class="cards-container" style="margin-bottom: 20px;">
+                                        <div class="data-card">
+                                            👥 Funcionários<strong>3,5 pessoas</strong>
+                                        </div>
+                                        <div class="data-card">
+                                            ⏱️ Tempo Dedicado<strong>30% mensal</strong>
+                                        </div>
+                                        <div class="data-card">
+                                            💼 Custo Mensal<strong>R$ 25.000</strong>
+                                        </div>
+                                        <div class="data-card">
+                                            📋 Informes<strong>650 anuais</strong>
+                                        </div>
+                                    </div>
+                                    <div style="background: rgba(102, 255, 170, 0.2); padding: 15px; border-radius: 10px; font-size: 22px; font-weight: bold;">
+                                        🎊 ROI Final: 346,7% 🎉
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Slide 3: Resultados Detalhados -->
+                <div class="slide">
+                    <div class="slide-header-container">
+                        <div class="slide-header">Resultados</div>
+                        <div class="roi-badge">
+                            <span class="roi-number">🎉 Success</span>
+                            <span class="roi-label">Comprovado</span>
+                        </div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3 style="color: #2E7D32; margin-bottom: 20px;">Detalhamento dos Resultados Quantitativos:</h3>
+                        
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Indicador</th>
+                                    <th>Como demonstrar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>💰 Economia de Custos Operacionais</strong></td>
+                                    <td>R$ 7.169 anuais comprovados, relatório de custos com pessoal.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>⚡ Otimização de Tempo</strong></td>
+                                    <td>30% do tempo mensal de 3,5 funcionários economizado.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>📈 Aumento de Eficiência</strong></td>
+                                    <td>650 informes processados automaticamente, zero erros manuais.</td>
+                                </tr>
+                                <tr class="highlight">
+                                    <td><strong>🎯 ROI Excepcional</strong></td>
+                                    <td>346,7% = R$ 7.169 economia ÷ R$ 1.605 investimento 🎉</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <div style="background: linear-gradient(135deg, rgba(102, 255, 170, 0.1), rgba(26, 95, 74, 0.1)); padding: 25px; border-radius: 15px; border-left: 5px solid #1a5f4a; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                            <h4 style="color: #0a4d3a; margin-bottom: 15px;">🎊 Principais Benefícios Qualitativos Conquistados:</h4>
+                            <ul style="color: #333; line-height: 1.8;">
+                                <li>😊 <strong>Satisfação da equipe:</strong> Eliminação de 650 informes manuais repetitivos por ano</li>
+                                <li>🚀 <strong>Experiência do cliente:</strong> Informes mais rápidos, precisos e padronizados</li>
+                                <li>⚙️ <strong>Processos otimizados:</strong> Automação completa do fluxo de trabalho</li>
+                                <li>📈 <strong>Escalabilidade:</strong> Capacidade de processar mais informes sem aumentar equipe</li>
+                                <li>🎯 <strong>Foco estratégico:</strong> 3,5 pessoas liberadas para atividades de maior valor</li>
+                                <li>💡 <strong>Inovação comprovada:</strong> ROI demonstra excelência na execução!</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Slide 4: Reconhecimento da Equipe -->
+                <div class="slide">
+                    <div class="slide-header-container">
+                        <div class="slide-header" style="text-align: center; background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); color: #333;">
+                            🏆 Reconhecimento da Equipe 🏆
+                        </div>
+                        <div class="roi-badge" style="background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);">
+                            <span class="roi-number">👏 Team</span>
+                            <span class="roi-label">Champions</span>
+                        </div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div style="background: linear-gradient(135deg, #1a5f4a 0%, #66ffaa 100%); color: white; padding: 40px; border-radius: 20px; text-align: center; box-shadow: 0 15px 35px rgba(0,0,0,0.2); margin: 30px 0; position: relative; overflow: hidden;">
+                            
+                            <div style="position: absolute; top: -20px; left: -20px; width: 80px; height: 80px; background: rgba(255,255,255,0.1); border-radius: 50%; animation: float 3s ease-in-out infinite;"></div>
+                            <div style="position: absolute; bottom: -30px; right: -30px; width: 120px; height: 120px; background: rgba(255,255,255,0.05); border-radius: 50%; animation: float 4s ease-in-out infinite reverse;"></div>
+                            
+                            <div style="font-size: 48px; margin-bottom: 20px; animation: bounce 2s infinite;">🎉</div>
+                            
+                            <h2 style="font-size: 32px; margin-bottom: 25px; text-shadow: 0 3px 6px rgba(0,0,0,0.3); font-weight: bold;">
+                                PARABÉNS PARA TODO O TIME ENVOLVIDO!
+                            </h2>
+                            
+                            <div style="background: rgba(255,255,255,0.15); padding: 25px; border-radius: 15px; margin: 25px 0; backdrop-filter: blur(10px);">
+                                <div style="font-size: 24px; font-weight: bold; margin-bottom: 15px; color: #FFD700; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">
+                                    ⭐ EUDES • GISELE • NATÁLIA • JULIANA ⭐
+                                </div>
+                                <div style="font-size: 20px; font-style: italic; opacity: 0.95;">
+                                   Juntos somos mais fortes e alcançamos resultados extraordinários!
+                                </div>
+                            </div>
+                            
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin: 30px 0;">
+                                <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 12px; text-align: center;">
+                                    <div style="font-size: 24px; margin-bottom: 8px;">🚀</div>
+                                    <div style="font-weight: bold;">Inovação</div>
+                                    <div style="font-size: 14px; opacity: 0.9;">Transformaram processos</div>
+                                </div>
+                                <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 12px; text-align: center;">
+                                    <div style="font-size: 24px; margin-bottom: 8px;">💎</div>
+                                    <div style="font-weight: bold;">Excelência</div>
+                                    <div style="font-size: 14px; opacity: 0.9;">ROI de 346,7%</div>
+                                </div>
+                                <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 12px; text-align: center;">
+                                    <div style="font-size: 24px; margin-bottom: 8px;">🤝</div>
+                                    <div style="font-weight: bold;">Colaboração</div>
+                                    <div style="font-size: 14px; opacity: 0.9;">Trabalho em equipe</div>
+                                </div>
+                                <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 12px; text-align: center;">
+                                    <div style="font-size: 24px; margin-bottom: 8px;">🎯</div>
+                                    <div style="font-weight: bold;">Resultados</div>
+                                    <div style="font-size: 14px; opacity: 0.9;">R$ 7.169 economizados</div>
+                                </div>
+                            </div>
+                            
+                            <div style="font-size: 28px; font-weight: bold; margin-top: 30px; text-shadow: 0 3px 6px rgba(0,0,0,0.3);">
+                                🌟 VOCÊS SÃO INCRÍVEIS! 🌟
+                            </div>
+                            
+                            <div style="font-size: 16px; margin-top: 15px; font-style: italic; opacity: 0.9;">
+                                Este sucesso é fruto da dedicação, criatividade e colaboração de cada um de vocês.<br>
+                                Continuem brilhando e inspirando mudanças positivas!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(event, tabId) {
+            // Remove active class from all tab buttons and content
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabButtons.forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Add active class to clicked button and corresponding content
+            event.currentTarget.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+    </script>
+</body>
+</html>
